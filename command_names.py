@@ -1,0 +1,7 @@
+START_CMD = '/start'
+MENU_CMD = '/menu'
+WHO_CMD = '/who'
+SCORE_CMD = '/score'
+TIME_CMD = '/time'
+GAME_CMD = '/game'
+SURRENDER_CMD = '/surrender'
