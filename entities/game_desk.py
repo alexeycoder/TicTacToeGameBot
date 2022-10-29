@@ -3,6 +3,7 @@ from entities.cell_state import CellState
 
 
 __DIM = 3
+__CENTER_IDX = 4
 
 horizontals = tuple(tuple(range(__DIM*row, __DIM * (row+1)))
                     for row in range(__DIM))
@@ -78,14 +79,18 @@ def __get_empty_indices_of_max_filled_line(desk, cell_state: CellState):
 
 
 def do_ai_turn(desk, ai_mark: CellState) -> int:
+    if desk[__CENTER_IDX] == CellState.EMPTY:
+        desk[__CENTER_IDX] = ai_mark
+        return __CENTER_IDX
+
     user_mark = ({CellState.O, CellState.X}-{ai_mark}).pop()
 
     ai_empty_indices = __get_empty_indices_of_max_filled_line(desk, ai_mark)
     user_empty_indices = __get_empty_indices_of_max_filled_line(
         desk, user_mark)
 
-    ai_weight = -1 if ai_empty_indices is None else len(ai_empty_indices)
-    user_weight = -1 if user_empty_indices is None else len(user_empty_indices)
+    ai_weight = float('inf') if ai_empty_indices is None else len(ai_empty_indices)
+    user_weight = float('inf') if user_empty_indices is None else len(user_empty_indices)
 
     if ai_weight == 1:  # just one step to win
         i = ai_empty_indices[0]
