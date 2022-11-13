@@ -13,7 +13,7 @@ def get_user_answers_filter():
     allowed_answers_lst = [str(i+1) for i in range(9)] + \
         [dr.O_SYMBOL, dr.X_SYMBOL]
     allowed_answers_str = '|'.join(allowed_answers_lst)
-    return filters.Regex(f"^({allowed_answers_lst})$")
+    return filters.Regex(f"^({allowed_answers_str})$")
 
 
 async def notify_user_on_error(update: Update, context: ContextTypes.DEFAULT_TYPE, error_msg) -> None:
